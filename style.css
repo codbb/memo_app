@@ -1,0 +1,389 @@
+:root {
+    --font-primary: 'Poppins', 'Noto Sans KR', sans-serif;
+    
+    /* Light Theme Palette */
+    --bg-light: #f8f9fa;
+    --container-bg-light: #ffffff;
+    --text-primary-light: #212529;
+    --text-secondary-light: #6c757d;
+    --border-light: #dee2e6;
+    --primary-light: #007bff;
+    --primary-hover-light: #0056b3;
+    --secondary-btn-light: #e9ecef;
+    --secondary-btn-hover-light: #d3d9df;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --memo-bg-light: #ffffff;
+    --tag-bg-light: #e9ecef;
+    --tag-text-light: #495057;
+    --tag-active-bg-light: #495057;
+    --tag-active-text-light: #ffffff;
+    --success-light: #28a745;
+    --danger-light: #dc3545;
+
+    /* Dark Theme Palette */
+    --bg-dark: #121212;
+    --container-bg-dark: #1e1e1e;
+    --text-primary-dark: #e9ecef;
+    --text-secondary-dark: #adb5bd;
+    --border-dark: #343a40;
+    --primary-dark: #0d6efd;
+    --primary-hover-dark: #0b5ed7;
+    --secondary-btn-dark: #343a40;
+    --secondary-btn-hover-dark: #495057;
+    --shadow-dark: rgba(0, 0, 0, 0.25);
+    --memo-bg-dark: #2c2c2c;
+    --tag-bg-dark: #343a40;
+    --tag-text-dark: #ced4da;
+    --tag-active-bg-dark: #0d6efd;
+    --tag-active-text-dark: #ffffff;
+    --success-dark: #198754;
+    --danger-dark: #dc3545;
+
+    /* Priority Colors */
+    --priority-1: #6c757d;
+    --priority-2: #0dcaf0;
+    --priority-3: #0d6efd;
+    --priority-4: #ffc107;
+    --priority-5: #dc3545;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-light);
+    color: var(--text-primary-light);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--container-bg-light);
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px var(--shadow-light);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+/* --- Form & Input Elements --- */
+.memo-input {
+    background-color: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#memo-text, #tag-input, #priority-select, #search-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    background-color: var(--container-bg-light);
+    color: var(--text-primary-light);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+#memo-text:focus, #tag-input:focus, #priority-select:focus, #search-input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.memo-options {
+    display: flex;
+    gap: 1rem;
+}
+
+#tag-input {
+    flex-grow: 1;
+}
+
+.memo-input-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Buttons --- */
+button {
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#save-btn {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+#save-btn:hover {
+    background-color: var(--primary-hover-light);
+}
+
+#sort-btn, #toggle-archive-view-btn, #theme-toggle-btn {
+    background-color: var(--secondary-btn-light);
+    color: var(--text-primary-light);
+    border: 1px solid var(--border-light);
+}
+
+#sort-btn:hover, #toggle-archive-view-btn:hover, #theme-toggle-btn:hover {
+    background-color: var(--secondary-btn-hover-light);
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Tags --- */
+.tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.tag-filter {
+    background-color: var(--tag-bg-light);
+    color: var(--tag-text-light);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.tag-filter.active {
+    background-color: var(--tag-active-bg-light);
+    color: var(--tag-active-text-light);
+}
+
+/* --- Memo List & Items --- */
+.memo-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.memo-item {
+    background-color: var(--memo-bg-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-top: 4px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px var(--shadow-light);
+}
+
+.memo-item[data-priority="1"] { border-top-color: var(--priority-1); }
+.memo-item[data-priority="2"] { border-top-color: var(--priority-2); }
+.memo-item[data-priority="3"] { border-top-color: var(--priority-3); }
+.memo-item[data-priority="4"] { border-top-color: var(--priority-4); }
+.memo-item[data-priority="5"] { border-top-color: var(--priority-5); }
+
+.memo-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.memo-item-header .priority-select {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+.memo-item textarea {
+    background: none;
+    border: none;
+    color: var(--text-primary-light);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: none;
+    flex-grow: 1;
+    height: 120px;
+}
+
+.memo-item textarea:focus {
+    outline: none;
+}
+
+.memo-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.memo-tag {
+    background-color: var(--tag-bg-light);
+    color: var(--tag-text-light);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.memo-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary-light);
+    font-size: 0.8rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.archive-btn, .restore-btn, .perm-delete-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+.archive-btn:hover, .restore-btn:hover, .perm-delete-btn:hover {
+    background-color: var(--secondary-btn-light);
+}
+
+.archive-btn svg, .restore-btn svg, .perm-delete-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--text-secondary-light);
+}
+
+.restore-btn svg { stroke: var(--success-light); }
+.perm-delete-btn svg { stroke: var(--danger-light); }
+
+/* --- Dark Mode --- */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-primary-dark);
+}
+
+.dark-mode .container {
+    background-color: var(--container-bg-dark);
+    box-shadow: 0 8px 32px var(--shadow-dark);
+}
+
+.dark-mode .memo-input {
+    background-color: var(--bg-dark);
+}
+
+.dark-mode #memo-text, .dark-mode #tag-input, .dark-mode #priority-select, .dark-mode #search-input {
+    background-color: var(--container-bg-dark);
+    color: var(--text-primary-dark);
+    border-color: var(--border-dark);
+}
+
+.dark-mode #memo-text:focus, .dark-mode #tag-input:focus, .dark-mode #priority-select:focus, .dark-mode #search-input:focus {
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+.dark-mode #save-btn {
+    background-color: var(--primary-dark);
+}
+.dark-mode #save-btn:hover {
+    background-color: var(--primary-hover-dark);
+}
+
+.dark-mode #sort-btn, .dark-mode #toggle-archive-view-btn, .dark-mode #theme-toggle-btn {
+    background-color: var(--secondary-btn-dark);
+    color: var(--text-primary-dark);
+    border-color: var(--border-dark);
+}
+.dark-mode #sort-btn:hover, .dark-mode #toggle-archive-view-btn:hover, .dark-mode #theme-toggle-btn:hover {
+    background-color: var(--secondary-btn-hover-dark);
+}
+
+.dark-mode .tag-filters {
+    border-bottom-color: var(--border-dark);
+}
+
+.dark-mode .tag-filter {
+    background-color: var(--tag-bg-dark);
+    color: var(--tag-text-dark);
+}
+
+.dark-mode .tag-filter.active {
+    background-color: var(--tag-active-bg-dark);
+    color: var(--tag-active-text-dark);
+}
+
+.dark-mode .memo-item {
+    background-color: var(--memo-bg-dark);
+    box-shadow: 0 4px 12px var(--shadow-dark);
+}
+
+.dark-mode .memo-item textarea {
+    color: var(--text-primary-dark);
+}
+
+.dark-mode .memo-tag {
+    background-color: var(--tag-bg-dark);
+    color: var(--tag-text-dark);
+}
+
+.dark-mode .memo-footer {
+    color: var(--text-secondary-dark);
+    border-top-color: var(--border-dark);
+}
+
+.dark-mode .archive-btn:hover, .dark-mode .restore-btn:hover, .dark-mode .perm-delete-btn:hover {
+    background-color: var(--secondary-btn-dark);
+}
+
+.dark-mode .archive-btn svg, .dark-mode .restore-btn svg, .dark-mode .perm-delete-btn svg {
+    stroke: var(--text-secondary-dark);
+}
+
+.dark-mode .restore-btn svg { stroke: var(--success-dark); }
+.dark-mode .perm-delete-btn svg { stroke: var(--danger-dark); }
