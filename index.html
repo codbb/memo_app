@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메모 앱</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>메모장</h1>
+            <button id="theme-toggle-btn">테마 전환</button>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="메모 검색...">
+        </div>
+        <div class="memo-input">
+            <textarea id="memo-text" placeholder="메모를 입력하세요..."></textarea>
+            <div class="memo-options">
+                <input type="text" id="tag-input" placeholder="태그 (쉼표로 구분)">
+                <select id="priority-select">
+                    <option value="1">중요도 1</option>
+                    <option value="2">중요도 2</option>
+                    <option value="3">중요도 3</option>
+                    <option value="4">중요도 4</option>
+                    <option value="5">중요도 5</option>
+                </select>
+            </div>
+            <button id="save-btn">저장</button>
+        </div>
+        <div class="toolbar">
+            <button id="sort-btn">중요도 순 정렬</button>
+            <button id="toggle-archive-view-btn">아카이브 보기</button>
+        </div>
+        <div id="tag-filters" class="tag-filters"></div>
+        <div id="memo-list" class="memo-list"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
