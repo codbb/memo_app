@@ -1,11 +1,24 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const memoTextInput = document.getElementById('memo-text');
+    const tagInput = document.getElementById('tag-input');
+    const prioritySelect = document.getElementById('priority-select');
+    const saveBtn = document.getElementById('save-btn');
+    const memoList = document.getElementById('memo-list');
+    const searchInput = document.getElementById('search-input');
+    const sortBtn = document.getElementById('sort-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const toggleArchiveViewBtn = document.getElementById('toggle-archive-view-btn');
+    const tagFiltersContainer = document.getElementById('tag-filters');
     const memoInputContainer = document.querySelector('.memo-input');
-
+    const searchBarContainer = document.querySelector('.search-bar');
 
     // App State
     let memos = [];
     let archivedMemos = [];
     let currentView = 'main'; // 'main' or 'archive'
     let activeTag = null;
+    let debounceTimer;
 
     // --- ICON SVGs ---
     const ICONS = {
@@ -53,6 +66,11 @@
         localStorage.setItem('theme', theme);
     };
 
+    const toggleTheme = () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+    };
+
     // --- RENDERING ---
     const renderAll = () => {
         renderMemos();
@@ -61,6 +79,7 @@
     };
 
     const renderMemos = () => {
+        const scrollTop = memoList.scrollTop;
         memoList.innerHTML = '';
         const sourceMemos = currentView === 'main' ? memos : archivedMemos;
         const searchTerm = searchInput.value.toLowerCase();
@@ -80,6 +99,7 @@
                 memoList.appendChild(memoItem);
             });
         }
+        memoList.scrollTop = scrollTop;
     };
 
     const renderTags = () => {
@@ -148,7 +168,12 @@
         memoTextarea.value = memo.text;
         memoTextarea.readOnly = isArchived;
         if (!isArchived) {
-            memoTextarea.addEventListener('input', () => updateMemoText(memo.id, memoTextarea.value));
+            memoTextarea.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    updateMemoText(memo.id, memoTextarea.value);
+                }, 400);
+            });
         }
 
         const tagsContainer = document.createElement('div');
@@ -168,7 +193,7 @@
         timestampDiv.className = 'memo-timestamp';
         timestampDiv.textContent = memo.timestamp;
         
-        const actionsWrapper = document.createElement('div')
+        const actionsWrapper = document.createElement('div');
         actionsWrapper.className = 'archive-actions';
 
         if (isArchived) {
@@ -195,10 +220,10 @@
     const updateUIForView = () => {
         const isMainView = currentView === 'main';
         memoInputContainer.style.display = isMainView ? 'flex' : 'none';
+        searchBarContainer.style.display = isMainView ? 'block' : 'none';
         sortBtn.style.display = isMainView ? 'inline-block' : 'none';
         tagFiltersContainer.style.display = isMainView ? 'flex' : 'none';
         toggleArchiveViewBtn.textContent = isMainView ? '아카이브 보기' : '메모 목록 보기';
-        document.querySelector('.search-bar').style.display = isMainView ? 'block' : 'none';
     };
 
     // --- CRUD & OTHER ACTIONS ---
@@ -283,17 +308,18 @@
     const toggleView = () => {
         currentView = currentView === 'main' ? 'archive' : 'main';
         activeTag = null; 
+        searchInput.value = ''; // Clear search input when toggling views
         renderAll();
     };
 
     // --- EVENT LISTENERS ---
     saveBtn.addEventListener('click', addMemo);
-    searchInput.addEventListener('input', renderMemos);
+    searchInput.addEventListener('input', () => renderAll());
     sortBtn.addEventListener('click', sortByPriority);
-    themeToggleBtn.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-mode') ? 'light' : 'dark'));
+    themeToggleBtn.addEventListener('click', toggleTheme);
     toggleArchiveViewBtn.addEventListener('click', toggleView);
 
     // --- INITIALIZATION ---
     loadData();
     renderAll();
-
+});
